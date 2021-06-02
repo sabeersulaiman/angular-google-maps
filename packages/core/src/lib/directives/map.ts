@@ -298,6 +298,11 @@ export class AgmMap implements OnChanges, AfterContentInit, OnDestroy {
   @Input() mapTypeId: keyof typeof google.maps.MapTypeId = 'ROADMAP';
 
   /**
+   * The map mapId, can be used to create a vector map which uses webGL
+   */
+  @Input() mapId: string;
+
+  /**
    * When false, map icons are not clickable. A map icon represents a point of interest,
    * also known as a POI. By default map icons are clickable.
    */
@@ -453,7 +458,8 @@ export class AgmMap implements OnChanges, AfterContentInit, OnDestroy {
       gestureHandling: this.gestureHandling,
       tilt: this.tilt,
       restriction: this.restriction,
-    })
+      mapId: this.mapId
+    } as any)
       .then(() => this._mapsWrapper.getNativeMap())
       .then(map => this.mapReady.emit(map));
 
